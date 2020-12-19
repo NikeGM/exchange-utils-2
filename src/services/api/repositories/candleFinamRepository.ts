@@ -1,6 +1,6 @@
 'use strict';
 import * as http from 'http';
-import { UploadCandlesFinam } from '../routes/upload-candles-finam/interfaces';
+import { UploadCandlesFinam } from '../routes/uploadCandlesFinam/interfaces';
 import { FinamUrlParametersList } from './interfaces';
 
 export class CandleFinamRepository {

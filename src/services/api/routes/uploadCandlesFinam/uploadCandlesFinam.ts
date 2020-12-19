@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { asyncMiddleware } from '../../utils/asyncMiddleware';
-import { CandleFinamRepository } from '../../repositories/candle-finam-repository';
-import { CandleRepository } from '../../repositories/candle-repository';
+import { CandleFinamRepository } from '../../repositories/candleFinamRepository';
+import { CandleRepository } from '../../repositories/candleRepository';
 import { IRoute } from '../../interfaces';
 import { UploadCandlesFinam } from './interfaces';
 

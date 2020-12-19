@@ -1,5 +1,5 @@
-import { CandleRepository } from './repositories/candle-repository';
-import { CandleFinamRepository } from './repositories/candle-finam-repository';
+import { CandleRepository } from './repositories/candleRepository';
+import { CandleFinamRepository } from './repositories/candleFinamRepository';
 import { IContainer } from 'bottlejs';
 import { Api } from './api';
 import Knex from 'knex';
