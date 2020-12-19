@@ -1,0 +1,39 @@
+paths:
+  /api/upload-candles-finam:
+    get:
+      summary: Uploads candles from finam.
+      parameters:
+        - in: query
+          name: finamCode
+          type: string
+          description: finmaCode(em)
+
+        - in: query
+          name: period
+          type: string
+          required: false
+          description: candles period
+
+        - in: query
+          name: name
+          type: string
+          required: false
+          description: candles name
+
+        - in: query
+          name: code
+          type: string
+          required: false
+          description: candles code
+
+        - in: query
+          name: start
+          type: string
+          required: false
+          description: candles start time
+
+        - in: query
+          name: end
+          type: string
+          required: false
+          description: candles end time
