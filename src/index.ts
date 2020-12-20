@@ -1,4 +1,4 @@
-import { getClientApiContainer } from './services/api/container';
+import { getClientApiContainer } from './services/api';
 import config from 'config';
 
 const container = getClientApiContainer();

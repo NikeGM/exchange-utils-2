@@ -1,9 +1,8 @@
 import { Router } from 'express';
-import { asyncMiddleware } from '../../utils/asyncMiddleware';
-import { CandleFinamRepository } from '../../repositories/candleFinamRepository';
-import { CandleRepository } from '../../repositories/candleRepository';
+import { asyncMiddleware } from '../../utils';
 import { IRoute } from '../../interfaces';
 import { UploadCandlesFinam } from './interfaces';
+import { CandleFinamRepository, CandleRepository } from '../../../repositories';
 
 export class UploadCandlesFinamRoute implements IRoute {
 	private readonly route: Router = Router();
@@ -12,6 +11,10 @@ export class UploadCandlesFinamRoute implements IRoute {
 		private readonly candleFinamRepository: CandleFinamRepository,
 		private readonly candleRepository: CandleRepository
 	) {
+		this.addRoute();
+	}
+
+	public addRoute() {
 		this.route.get(
 			'/',
 			asyncMiddleware(async (req, res) => {

@@ -22,7 +22,7 @@ export class Candle {
 		this.open = new Decimal(open);
 		this.close = new Decimal(close);
 		this.low = new Decimal(low);
-		this.volume = new Decimal(volume);
+		this.volume = new Decimal(+volume);
 		this.period = new Period(period);
 		this.time = +time;
 		this.typical = typical ? new Decimal(typical) : this.high.plus(this.low).plus(this.close).div(3);

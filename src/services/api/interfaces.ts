@@ -1,9 +1,8 @@
-import { CandleRepository } from './repositories/candleRepository';
-import { CandleFinamRepository } from './repositories/candleFinamRepository';
 import { IContainer } from 'bottlejs';
 import { Api } from './api';
 import Knex from 'knex';
 import { Router } from 'express';
+import { CandleFinamRepository, CandleRepository } from '../repositories';
 
 export interface ClientApiContainer extends IContainer{
 	api: Api;

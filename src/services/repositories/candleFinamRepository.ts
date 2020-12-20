@@ -1,19 +1,17 @@
 'use strict';
 import * as http from 'http';
-import { UploadCandlesFinam } from '../routes/uploadCandlesFinam/interfaces';
 import { FinamUrlParametersList } from './interfaces';
+import { UploadCandlesFinam } from '../api/routes/uploadCandlesFinam';
+import { Candle } from '../../models';
 
 export class CandleFinamRepository {
-
-	constructor() {
-	}
-
-	public loadFinamCandles(params: UploadCandlesFinam) {
+	public async loadFinamCandles(params: UploadCandlesFinam): Promise<Candle[]> {
 		const finamUrlParameters = this.getLoadCandlesParams(params);
-		return this.loadCandles(finamUrlParameters);
+		const file = await this.loadCandlesFile(finamUrlParameters);
+		return this.convertToCandles(file, params);
 	}
 
-	private loadCandles(params): Promise<string> {
+	private loadCandlesFile(params: FinamUrlParametersList): Promise<string> {
 		return new Promise((res, rej) => {
 			const {
 				code, e, market, em, p, yf, yt, month_start, day_start, month_end, day_end, dtf, tmf, MSOR, mstimever, sep, sep2,
@@ -70,16 +68,38 @@ export class CandleFinamRepository {
 		}
 	}
 
-	private finamPeriodMap(period: string) {
+	private finamPeriodMap(period: string): number {
 		const map = {
-			M1: 1,
-			M5: 2,
-			M10: 3,
-			M15: 4,
-			M30: 5,
-			H1: 6,
-			D1: 7
+			M1: 2,
+			M5: 3,
+			M10: 4,
+			M15: 5,
+			M30: 6,
+			H1: 7,
+			D1: 8,
+			W: 9
 		}
 		return map[period.toUpperCase()];
+	}
+
+	private convertToCandles(file: string, params: UploadCandlesFinam): Candle[] {
+		const lines = file.split('\n').filter((line, index, arr) => {
+			if (!line.length) {
+				console.log('Empty line', arr.length, index + 1)
+			}
+			return !!line.length;
+		})
+		return lines.map(line => {
+			const { period, name, code } = params;
+			const [, , date, time, open, high, low, close, volume] = line.split(',');
+			const [day, month, year] = date.split('/');
+			const [hours, minutes, seconds] = time.split(':');
+			const dateObject = new Date(`20${year}-${month}-${day}T${hours}:${minutes}:${seconds}.000+03:00`);
+
+			return new Candle({
+				high, open, close, low, volume, period, name, code,
+				time: dateObject.getTime()
+			})
+		})
 	}
 }

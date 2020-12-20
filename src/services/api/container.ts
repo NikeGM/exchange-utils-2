@@ -1,11 +1,10 @@
 import Knex from 'knex';
 import config from 'config';
-import { CandleRepository } from './repositories/candleRepository';
 import { Api } from './api';
-import { CandleFinamRepository } from './repositories/candleFinamRepository';
-import { UploadCandlesFinamRoute } from './routes/uploadCandlesFinam/uploadCandlesFinam';
+import { UploadCandlesFinamRoute } from './routes/uploadCandlesFinam';
 import { ClientApiContainer } from './interfaces';
 import Bottle from 'bottlejs';
+import { CandleFinamRepository, CandleRepository } from '../repositories';
 
 export const getClientApiContainer = () => {
 	const bottle = new Bottle();
