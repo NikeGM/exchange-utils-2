@@ -1,6 +1,6 @@
 import { DbCandleType } from './interfaces';
 import { DB_TABLES } from '../api';
-import { Candle } from '../../models';
+import { Candle, Period } from '../../models';
 import Knex = require('knex');
 
 export class CandleRepository {
@@ -23,9 +23,9 @@ export class CandleRepository {
 		return true;
 	};
 
-	public deleteCandleType(period: string, code: string): Promise<number> {
-		console.log(`Delete candles. Period: ${period}, code: ${code}`);
-		return this.client(this.table).where({period, code}).delete().catch(console.log) as Promise<number>;
+	public deleteCandleType(period: Period, code: string): Promise<number> {
+		console.log(`Delete candles. Period: ${period.symbol}, code: ${code}`);
+		return this.client(this.table).where({period: period.symbol, code}).delete().catch(console.log) as Promise<number>;
 	}
 
 	private saveCandlesBatch(candles: Candle[]): Promise<string[]> {
@@ -34,9 +34,9 @@ export class CandleRepository {
 	};
 
 	private prepareCandle(candle: Candle): DbCandleType {
-		const { name, code, time, date, open, high, low, close, volume, median, typical, weightedClose, period } = candle;
+		const { code, time, date, open, high, low, close, volume, median, typical, weightedClose, period } = candle;
 		return {
-			name, code, date,
+			code, date,
 			time: time.toString(),
 			open: +open,
 			high: +high,

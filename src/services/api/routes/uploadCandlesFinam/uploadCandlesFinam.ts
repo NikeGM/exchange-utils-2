@@ -3,6 +3,7 @@ import { asyncMiddleware } from '../../utils';
 import { IRoute } from '../../interfaces';
 import { UploadCandlesFinam } from './interfaces';
 import { CandleFinamRepository, CandleRepository } from '../../../repositories';
+import { Period } from '../../../../models';
 
 export class UploadCandlesFinamRoute implements IRoute {
 	private readonly route: Router = Router();
@@ -33,7 +34,7 @@ export class UploadCandlesFinamRoute implements IRoute {
 
 	public async controller(params: UploadCandlesFinam): Promise<boolean> {
 		const candles = await this.candleFinamRepository.loadFinamCandles(params);
-		await this.candleRepository.deleteCandleType(params.period, params.code);
+		await this.candleRepository.deleteCandleType(new Period(params.period), params.code);
 		return this.candleRepository.saveCandles(candles);
 	}
 

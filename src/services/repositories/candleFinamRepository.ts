@@ -8,6 +8,7 @@ export class CandleFinamRepository {
 	public async loadFinamCandles(params: UploadCandlesFinam): Promise<Candle[]> {
 		const finamUrlParameters = this.getLoadCandlesParams(params);
 		const file = await this.loadCandlesFile(finamUrlParameters);
+		// console.log(file);
 		return this.convertToCandles(file, params);
 	}
 
@@ -90,14 +91,14 @@ export class CandleFinamRepository {
 			return !!line.length;
 		})
 		return lines.map(line => {
-			const { period, name, code } = params;
+			const { period, code } = params;
 			const [, , date, time, open, high, low, close, volume] = line.split(',');
 			const [day, month, year] = date.split('/');
 			const [hours, minutes, seconds] = time.split(':');
 			const dateObject = new Date(`20${year}-${month}-${day}T${hours}:${minutes}:${seconds}.000+03:00`);
 
 			return new Candle({
-				high, open, close, low, volume, period, name, code,
+				high, open, close, low, volume, period, code,
 				time: dateObject.getTime()
 			})
 		})

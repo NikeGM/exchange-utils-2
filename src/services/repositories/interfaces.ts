@@ -27,7 +27,6 @@ export interface FinamUrlParametersList {
 }
 
 export interface DbCandleType {
-	name: string;
 	code: string;
 	time: string;
 	date: string;

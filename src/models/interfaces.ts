@@ -12,6 +12,5 @@ export interface CandleData {
 	median?: string|Decimal;
 	time: string|number;
 	period: string|Period;
-	name: string;
 	code: string;
 }

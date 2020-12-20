@@ -15,12 +15,6 @@ paths:
           description: candles period
 
         - in: query
-          name: name
-          type: string
-          required: false
-          description: candles name
-
-        - in: query
           name: code
           type: string
           required: false

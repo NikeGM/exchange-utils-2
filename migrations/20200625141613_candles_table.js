@@ -2,7 +2,6 @@
 exports.up = async knex => {
   await knex.schema.createTable('candles', table => {
     table.increments('id');
-    table.string('name');
     table.string('code');
     table.bigInteger('time');
     table.timestamp('date');
@@ -18,10 +17,11 @@ exports.up = async knex => {
     table.float('weighted_close');
 
     table.string('period');
+    table.string('em');
 
     table.unique(['code', 'time', 'period']);
 
-    table.index(['name', 'period'], 'name_period');
+    table.index(['code', 'period'], 'code_period');
 
   });
 };
