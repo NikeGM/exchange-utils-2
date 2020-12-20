@@ -17,7 +17,7 @@ exports.up = async knex => {
     table.float('weighted_close');
 
     table.string('period');
-    table.string('em');
+    table.integer('finamCode');
 
     table.unique(['code', 'time', 'period']);
 

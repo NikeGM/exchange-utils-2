@@ -13,4 +13,5 @@ export interface CandleData {
 	time: string|number;
 	period: string|Period;
 	code: string;
+	finamCode: number;
 }

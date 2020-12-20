@@ -1,5 +1,5 @@
 export interface UploadCandlesFinam {
-	finamCode: string;
+	finamCode: number;
 	period: string;
 	code: string;
 	start: string;

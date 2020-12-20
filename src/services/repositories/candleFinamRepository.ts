@@ -91,7 +91,7 @@ export class CandleFinamRepository {
 			return !!line.length;
 		})
 		return lines.map(line => {
-			const { period, code } = params;
+			const { period, code, finamCode } = params;
 			const [, , date, time, open, high, low, close, volume] = line.split(',');
 			const [day, month, year] = date.split('/');
 			const [hours, minutes, seconds] = time.split(':');
@@ -99,7 +99,8 @@ export class CandleFinamRepository {
 
 			return new Candle({
 				high, open, close, low, volume, period, code,
-				time: dateObject.getTime()
+				time: dateObject.getTime(),
+				finamCode
 			})
 		})
 	}
